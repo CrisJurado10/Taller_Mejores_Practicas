@@ -1,0 +1,127 @@
+﻿@model HomeViewModel
+
+@{
+    ViewData["Title"] = "Gestión de Vehículos";
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">🚗 Gestión de Vehículos</h1>
+        <p class="lead text-secondary">Administra, supervisa y optimiza tu flota de vehículos con estilo y eficiencia.</p>
+        <a href="https://docs.microsoft.com/aspnet/core" target="_blank" class="btn btn-primary btn-lg shadow-sm mt-3">Guía de ASP.NET Core</a>
+    </div>
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger text-center shadow-sm">@ViewBag.ErrorMessage</div>
+    }
+
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-gradient-primary text-white rounded-top-4">
+            <h4 class="mb-0 text-center">Lista de Vehículos</h4>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-bordered table-hover mb-0">
+                <thead class="table-primary text-white">
+                    <tr class="text-center">
+                        <th scope="col">ID</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Gasolina</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Vehicles != null && Model.Vehicles.Any())
+                    {
+                        foreach (var vehicle in Model.Vehicles)
+                        {
+                            <tr class="text-center align-middle">
+                                <td>@vehicle.ID</td>
+                                <td>@vehicle.GetType().Name</td>
+                                <td>@vehicle.Brand</td>
+                                <td>@vehicle.Model</td>
+                                <td>
+                                    <span class="badge rounded-pill" style="background-color:@vehicle.Color; color: white;">@vehicle.Color</span>
+                                </td>
+                                <td>@vehicle.Gas.ToString("N1") L</td>
+                                <td>
+                                    @if (vehicle.IsEngineOn())
+                                    {
+                                        <span class="badge bg-success">Encendido 🔥</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">Apagado ❄️</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        @if (vehicle.IsEngineOn())
+                                        {
+                                            <a asp-action="StopEngine" asp-route-id="@vehicle.ID" class="btn btn-warning btn-sm">Apagar Motor</a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="StartEngine" asp-route-id="@vehicle.ID" class="btn btn-success btn-sm">Encender Motor</a>
+                                        }
+                                        <a asp-action="AddGas" asp-route-id="@vehicle.ID" class="btn btn-info btn-sm">Llenar Tanque</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center text-muted">No hay vehículos disponibles.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <a asp-action="AddMustang" class="btn btn-outline-primary btn-lg shadow-sm me-3">
+            <img src="https://via.placeholder.com/40" class="rounded-circle me-2">Añadir Mustang
+        </a>
+        <a asp-action="AddExplorer" class="btn btn-outline-primary btn-lg shadow-sm">
+            <img src="https://via.placeholder.com/40" class="rounded-circle me-2">Añadir Explorer
+        </a>
+    </div>
+</div>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(90deg, #007bff, #0056b3);
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    .badge {
+        font-size: 0.85rem;
+    }
+
+    .btn {
+        transition: all 0.2s ease-in-out;
+    }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+    .rounded-4 {
+        border-radius: 1.5rem;
+    }
+
+    .rounded-top-4 {
+        border-top-left-radius: 1.5rem;
+        border-top-right-radius: 1.5rem;
+    }
+</style>

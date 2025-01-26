@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "lc//xilcxQW0cUY730OJhseagJY5HMjtUV7IkyJnjrfg+B4/CLjCmuj2REOPNMb0ZDd3qEAA+u34u/b+KEYRgw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ASUS GAMING\\Desktop\\Program. WEB\\Taller_Practicas\\DesignPatterns\\DesignPatterns.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ASUS GAMING\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.13\\microsoft.visualstudio.azure.containers.tools.targets.1.10.13.nupkg.sha512"
+  ],
+  "logs": []
+}
